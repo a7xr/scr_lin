@@ -1,0 +1,40 @@
+# to list #remote_repos												%001
+# to get some information about the #remote_repo					%002
+# to #rename the name of a #remote_repo								%003
+# to #create another #new #branch #new_branch						%004
+# to #delete a branch #delete #branch								%005
+# to #merge a branch
+# to tag a #commit which is already #commited						%006
+# to list all tags													%007
+# to push a tag instead of pushing a branch							%008
+# to push all tags which are new									%009
+# to see which #branch are not #merged	#no #merged					%010
+
+#	%010
+git branch --no-merged
+
+#	%009
+git push remoteRepo00 --tags
+
+#	%008
+git push remoteRepo00 tag00
+
+#	%007
+git tag
+
+#	%006
+git tag -a v1.2 9fceb02
+
+
+#	%005
+git checkout -d brToDel
+
+#	%004
+git checkout -b nameNewBranch
+
+#	%002
+git remote show name_remote_repo
+ex:	git remote show origin
+
+#	%001
+git remote -v

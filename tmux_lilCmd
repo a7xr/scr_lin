@@ -1,0 +1,8 @@
+# to #list all #session of tmux											%001a
+# to #attach a #session which is in the list							%001b
+
+#	%002
+tmux attach -t nameSession00
+
+# 	%001
+tmux ls

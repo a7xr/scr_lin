@@ -1,0 +1,1 @@
+crunch 1 8  charset.lst mixalpha-numeric-all-space -o wordlist.txt
