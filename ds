@@ -1,0 +1,183 @@
+#!/bin/bash
+# to enter money in your db  :: cost - comment							%001
+# #short so I can set the command of mysql immediately					%002
+# to get the state of my money											%003
+# to insert some important #command of #linux							%004
+# u seen some vid and you want to save that u saw it
+# 	the main goal is to save also where did u seen it in the last time	%005
+# to see how to insert someone in ur db									%006
+# to insert someone in ur db											%007
+# to insert question into the db										%008
+# 
+#	#end_c
+# 
+#
+#	%002
+
+
+# alias msql='mysql -u nonickn -p0000 -s db_study -e'
+#	%001
+if [ -z "$1" ]
+then
+	echo '	
+--add: to add some cost of money
+	ex: this_ --add 200 "did something"
+
+--money_last|-ml		to check the last state
+	ex:	this_ --money_last
+
+--mon_took|-mt
+	to take money from the money_state	#english
+	ex:	this_ --mon_took 500 potatoes
+	'
+	else
+		echo ''
+fi
+
+
+#	%001
+if [ "$1" == '--mon_add' ] || [ "$1" == '-ma' ]
+then
+	#	$2 is for the cost
+	#	$3 is for the comment, comment about the action
+	if [ "$2" ] && [ "$3" ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
+		mysql -u nonickn -p0000 -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
+	else
+		echo "ur arguments are not enough"
+		echo '	$2: for the cost'
+		echo '	$3: for the comment'
+	fi
+
+elif [ "$1" == 'testing' ]
+then
+	# mysql -u nonickn -p0000 -s db_study -e "set @var01='thisis a test';
+	# select @var01;"
+
+	#	#testing
+	echo here is the testing point
+#lo	#last #option
+# this is a test of cron
+elif [ "$1" == '-Sl' ]
+then
+	mysql -u nonickn -p0000 -s db_study -e "select * from notes;"
+
+
+elif [ "$1" == '-Sa' ]
+then
+	mysql -u nonickn -p0000 -s db_study -e "insert into notes (notes) values ('$2');"
+
+elif [ "$1" == '-ql' ]
+then
+	if [ "$2" == '-q' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "select id_question, question from s_question"
+	elif [ "$2" == '-t' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "select distinct tag from s_tag"
+	elif [ "$2" == '-qa' ]
+	then
+		# echo 'to list all question and the answer which go with it'
+		mysql -u nonickn -p0000 -s db_study -e "select id_question, question, answer from s_question inner join s_answer on s_question.id_question = s_answer.my_question"
+	else
+		echo 'ur parameter is not enough'
+	fi
+
+elif [ "$1" == '-qa' ] 
+then
+	if [ "$2" == '-q' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "insert into s_question (question) values ('$3')"
+	elif [ "$2" == '-a' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "insert into s_answer (my_question, answer) values ($3, '$4');"
+	else
+		echo '
+error of argument:
+	-qa -q "question00"
+		that is to insert question into the db
+'
+	fi
+
+
+elif [ "$1" == '--phone_people' ] || [ "$1" == '-pp' ]
+then
+	if [ "$2" == '--alias' ] || [ "$2" == '-a' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
+	
+	#	this is not yet done
+	elif [ "$2" == '--alias' ] || [ "$2" == '-a2' ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
+	else
+		echo ur arg is wrong
+		echo -pp -a
+	fi
+
+#	%006
+elif [ "$1" == '--people_help' ] || [ "$1" == '-ph' ]
+then
+	echo 'this is how to insert someone in ur db'
+	echo '	ex	:	this_ -pa "first_name" "middle_name" "last_name" "alias"'
+
+#	%007
+elif [ "$1" == '-pa' ] || [ "$1" == '--p_add' ]
+then
+	mysql -u nonickn -p0000 -s db_study -e "insert into person (first_name, middle_name, last_name, alias) values ('$2', '$3', '$4', '$5')"
+#	%005
+elif [ "$1" == '--vid_sv' ] || [ "$1" == '-vs'  ]
+then
+	if [ -n "$2" ] && [ -n "$3" ]; then
+		abs_path=$(readlink -f "$2")
+		# this is to take the length of the file_vid
+		length01=$(find -type f -name "$2" -print0 | xargs -0 mplayer -vo dummy -ao dummy -identify 2> /dev/null | perl -nle '/ID_LENGTH=([0-9\.]+)/ && ($t +=$1) && printf "%02d:%02d:%02d\n",$t/3600,$t/60%60,$t%60' | tail -n 1)
+		mysql -u nonickn -p0000 -s db_study -e "insert into vid_stu (link_file, seen_till_end, length) values ('$abs_path', $3, time('$length01') );"
+	else
+		echo 'ur option is not enough'
+		echo '
+	$2	:	for the file
+	$3	:	to tell if u seen all the film already
+		+	0	:	if NOT seen till the end
+		+	1	:	if seen till the end
+
+'
+	fi
+
+#	%004
+elif [ "$1" == '-cs'  ] || [ "$1" == '--cmd_sv' ]
+then
+	if [ -n "$2" ] && [ -n "$3" ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "insert into imp_cmd(cmd, cmt) values ('$2', '$3');"
+	else
+		echo 'ur option is not enough'
+		echo '
+	$2	:	is for the cmd
+	$3	:	is for the comment
+		'
+	fi
+#	%003
+elif [ "$1" == '--money_last' ] || [ "$1" == '-ml' ]
+then
+	mysql -u nonickn -p0000 -s db_study -e "select * from money_state where id_money_state=(select max(id_money_state) from money_state);"
+	# msql "select * from money_state where id_money_state=(select max(id_money_state) from money_state);"
+
+elif [ "$1" == '--mon_took' ] || [ "$1" == '-mt' ]
+then
+	#	$2 is for the cost
+	#	$3 is for the comment, comment about the action
+	if [ "$2" ] && [ "$3" ]
+	then
+		mysql -u nonickn -p0000 -s db_study -e "insert into money_out (cost, comment) values ($2, '$3');"
+	else
+		echo "ur arguments are not enough"
+		echo '	$2: for the cost'
+		echo '	$3: for the comment'
+	fi
+
+else
+	echo 'ur option is wrong'
+	echo 'type ds for the help'
+fi
