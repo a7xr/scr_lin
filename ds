@@ -59,7 +59,7 @@ then
 	echo here is the testing point
 #lo	#last #option
 
-elif [ "$1" == '-ql' ]
+elif [ "$1" == '-pl' ]
 then
 	msql 'select * from person'
 # this is a test of cron
