@@ -61,7 +61,7 @@ then
 
 elif [ "$1" == '-pl' ]
 then
-	msql 'select * from person'
+	mysql -u nonickn -p0000 -s db_study -e 'select * from person'
 # this is a test of cron
 elif [ "$1" == '-Sl' ]
 then
