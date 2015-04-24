@@ -1,8 +1,0 @@
-if_basis01(){
-	echo 'if [ "$var00" = "val00" ]'
-	echo '	then'
-	echo '	...........'
-	echo 'else'
-	echo '	...........'
-	echo 'fi'
-}

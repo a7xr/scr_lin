@@ -1,4 +1,5 @@
 #!/bin/bash
+mysql_=/usr/bin/mysql
 # to enter money in your db  :: cost - comment							%001
 # #short so I can set the command of mysql immediately					%002
 # to get the state of my money											%003
@@ -9,13 +10,21 @@
 # to insert someone in ur db											%007
 # to insert question into the db										%008
 # 
+########################################
+# -t --select
+#	there are some string
+#		chose one of the and put it inside var00						%009
+#########################################
+# -t --array
+# 	for studying array													%010
+########################################
 #	#end_c
 # 
 #
 #	%002
 
 
-# alias msql='mysql -u nonickn -p0000 -s db_study -e'
+# alias msql='mysql -u nonickn -p0000 -N -s db_study -e'
 #	%001
 if [ -z "$1" ]
 then
@@ -29,6 +38,54 @@ then
 --mon_took|-mt
 	to take money from the money_state	#english
 	ex:	this_ --mon_took 500 potatoes
+
+testing
+	to do some test of script linux
+
+-pl
+	to list all people in the db
+
+-Sl 
+	to list all notes in the db
+
+-tl
+	to list all tag in the db
+
+-Sa
+	to add notes
+
+-ql
+	-q
+		to list all question in the db
+	-t
+		to list all tags in the db
+	-qa
+		to list all questions and its answer
+
+-qa
+	-q
+		to add a question in the db
+	-a
+		to answer a question in the db
+		ex_:	this_ -qa -a 5 "answer00"
+			5:	the id_question
+	
+-pp
+	-a
+		to add a phone for someone who is already in db
+		ex_:	this_ -pp -a someone_in_db 05145phone_nb
+	-a2
+		not yet done
+
+-ph
+	help about how to insert someone in db	
+
+-pa
+	to insert someone in db:
+	ex_:	this_ -pa first_name mid_name last_name alias
+
+-vs
+	to save a vid in the db
 	'
 	else
 		echo ''
@@ -42,8 +99,8 @@ then
 	#	$3 is for the comment, comment about the action
 	if [ "$2" ] && [ "$3" ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
-		mysql -u nonickn -p0000 -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into money_in (cost, comment) values ($2, '$3');"
 	else
 		echo "ur arguments are not enough"
 		echo '	$2: for the cost'
@@ -52,38 +109,225 @@ then
 
 elif [ "$1" == 'testing' ]
 then
-	# mysql -u nonickn -p0000 -s db_study -e "set @var01='thisis a test';
+	# $mysql_ -u nonickn -p0000 -N -s db_study -e "set @var01='thisis a test';
 	# select @var01;"
 
 	#	#testing
-	echo here is the testing point
+	# echo here is the testing point
+	echo "$0"
 #lo	#last #option
+
+elif [ "$1" == '-t' ] && [ "$2" == '--exo03' ]
+	# Creer un script qui demande à l'utilisateur de saisir 
+	# 	une note et qui affiche un message en fonction de cette note :
+	
+	#		"très bien" si la note est entre 16 et 20 ;
+	#		"bien" lorsqu'elle est entre 14 et 16 ;
+	#		"assez bien" si la note est entre 12 et 14 ;
+	#		"moyen" si la note est entre 10 et 12 ;
+	# 		"insuffisant" si la note est inférieur à 10.
+then
+######algo#############################	
+	#	while [ $answ01 sup 0 ]
+	#	 demander note
+	#		var: question00 engendre reponse00
+	#		si reponse00 betw [16-20]
+	#			echo tres bien
+	#		si	reponse00 betw [14-16]
+	#			echo bien
+	#		si reponse00 betw [12-14]
+	#			echo assez bien
+	#		si rep00 betw [10-12]
+	#			echo moyen
+	#		si rep00 inf 10
+	#			echo insuffisant
+
+#######header##########################	
+	quest01='note: '
+	declare -i answ01=0
+	quit=''
+#######body############################	
+	until [ $answ01 -lt 0 ]
+	do
+		read -p "$quest01" answ01
+		if [ "$answ01" -le 20 ] && [ "$answ01" -ge 16 ]
+		then
+			echo tres bien
+		elif [ "$answ01" -le 15 ] && [ "$answ01" -ge 14 ]
+		then
+			echo bien
+		elif [ "$answ01" -le 13 ] && [ "$answ01" -ge 12 ]
+		then
+			echo assez bien
+		elif [ "$answ01" -le 11 ] && [ "$answ01" -ge 10 ]
+		then
+			echo moyen
+		elif [ "$answ01" -le 9 ] && [ "$answ01" -ge 0 ]
+		then
+			echo insuffisant
+		else
+			echo unknown
+		fi
+	done
+
+#######footer##########################	
+elif [ "$1" == '-t' ] && [ "$2" == '--exo02' ]
+	#
+	# am repert courant, asina repertVw2
+	# ao anatinlé repertVw2 asin file0Till9
+	# file0 soratana wé 0
+	# file9				9
+then
+	echo
+	# mnw repertoire00 vwvw
+	# miditra ani am repertoire00
+	# mnw { 
+	# 	fichier{00-09} 
+	# 	[soratana we 00 ao amfichier00]  
+	# } ao am repertoire00
+	#
+	#
+##########decl_var#####################
+	repertoire00=$(pwd)/repertoire00
+	files_='file'
+##########body#########################
+	mkdir $repertoire00
+	cd $repertoire00
+	for a in $(seq 0 9)
+	do
+		touch $files_$a
+		echo $a >> $files_$a
+	done
+##########footer#######################
+
+elif [ "$1" == '-t' ] && [ "$2" == '--error_no_val' ]
+then
+	var01=${4:?"no forth argument in ur cmd"}
+
+elif [ "$1" == '-t' ] && [ "$2" == '--exo01' ]
+then
+	#goal
+	# to ask how old are u
+	# 	$question $answer
+	# print $answer
+	# if $ans betw [0-3] echo baby
+	# 	betw [4-9] echo child
+	# 	betw [10-18] echo teen
+	# 	betw [19-60] adult
+	# 	betw [60-90] old
+	#
+	#var
+	question='how old are you? [01 till 99]: '
+	declare -i answer=0
+	#body
+	read -p "$question" answer
+	echo -n "u_re $answer years_old: "
+	if [ "$answer" -ge 0 ] && [ "$answer" -le 3 ]
+	then
+		echo u_re a baby
+	elif [ "$answer" -ge 4 ] && [ "$answer" -le 9 ]
+	then
+		echo a child
+	elif [ "$answer" -ge 10 ] && [ "$answer" -le 18 ]
+	then
+		echo good, a teen
+	elif [ "$answer" -ge 19 ] && [ "$answer" -le 60 ]
+	then
+		echo adult
+	elif [ "$answer" -ge 60 ] && [ "$answer" -le 90 ]
+	then
+		echo old
+	else
+		echo unknown
+	fi
+	read
+	echo ''
+	echo 'all of this part of age are awesome'
+	echo 'u_ve just to fix well ur teeth'
+
+
+
+	#footer
+
+elif [ "$1" == '-t' ] && [ "$2" == '--array' ]
+then
+	declare -A array_
+	array_[1]='first'
+	array_[2]='second'
+	array_[3]='third'
+
+	echo "${array_[@]}"
+
+
+
+elif [ "$1" == '-t' ] && [ "$2" == '--select' ]
+then
+	select var00 in str00 str01 str02
+	do
+		echo ur choice is $var00
+		break
+	done
+
+elif [ "$1" == '-fa' ]
+then
+	if [ "$2" ]
+	    then
+	    path01=$(readlink -f "$2") 
+	    mysql -u nonickn -p0000 -s db_study -e "insert into files (path) values ('$path01')"
+	    unset path01
+	else
+	    echo 'some argument is missing
+  ex  :  this_ -fa file00
+'
+	fi
+	
+	if [ "$3" == "--descr"  ]
+	then
+	    if [ "$4" ]
+	    then
+	        path01=$(readlink -f "$2")
+	        mysql -u nonickn -p0000 -s db_study -e "insert into files (path, descr) values ('$path01', '$4')"
+	    else
+		echo 'missing argument
+  ex : this_ -fa file00 --descr "#tuto #conf"
+'
+	    fi
+	else
+	  echo
+	fi
+
+elif [ "$1" == '-fl' ]
+then
+	$mysql_ -u nonickn -p0000 -N -s db_study -e "select path from files"
 
 elif [ "$1" == '-pl' ]
 then
-	mysql -u nonickn -p0000 -s db_study -e 'select * from person'
+	$mysql_ -u nonickn -p0000 -N -s db_study -e 'select * from person'
 # this is a test of cron
 elif [ "$1" == '-Sl' ]
 then
-	mysql -u nonickn -p0000 -s db_study -e "select * from notes;"
+	$mysql_ -u nonickn -p0000 -N -s db_study -e "select concat(id_note, '  ',notes) from notes;"
 
+elif [ "$1" == '-tl' ]
+then
+	$mysql_ -u nonickn -p0000 -s db_study -e "select id_test, name_test from s_test;"
 
 elif [ "$1" == '-Sa' ]
 then
-	mysql -u nonickn -p0000 -s db_study -e "insert into notes (notes) values ('$2');"
+	$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into notes (notes, _datet) values ('$2', now());"
 
 elif [ "$1" == '-ql' ]
 then
 	if [ "$2" == '-q' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "select id_question, question from s_question"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "select id_question, question, _datet from s_question"
 	elif [ "$2" == '-t' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "select distinct tag from s_tag"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "select distinct tag from s_tag"
 	elif [ "$2" == '-qa' ]
 	then
 		# echo 'to list all question and the answer which go with it'
-		mysql -u nonickn -p0000 -s db_study -e "select id_question, question, answer from s_question inner join s_answer on s_question.id_question = s_answer.my_question"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "select concat( id_question, '  ', question, ' :: ',answer) from s_question inner join s_answer on s_question.id_question = s_answer.my_question"
 	else
 		echo 'ur parameter is not enough'
 	fi
@@ -92,10 +336,10 @@ elif [ "$1" == '-qa' ]
 then
 	if [ "$2" == '-q' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "insert into s_question (question) values ('$3')"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into s_question (question, _datet) values ('$3', now())"
 	elif [ "$2" == '-a' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "insert into s_answer (my_question, answer) values ($3, '$4');"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into s_answer (my_question, answer) values ($3, '$4');"
 	else
 		echo '
 error of argument:
@@ -109,12 +353,12 @@ elif [ "$1" == '--phone_people' ] || [ "$1" == '-pp' ]
 then
 	if [ "$2" == '--alias' ] || [ "$2" == '-a' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
 	
 	#	this is not yet done
 	elif [ "$2" == '--alias' ] || [ "$2" == '-a2' ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "set @id_pers01=(select id_person from person where alias='$3'); insert into phone (phone_nb, owner) values ('$4', @id_pers01)"
 	else
 		echo ur arg is wrong
 		echo -pp -a
@@ -129,7 +373,7 @@ then
 #	%007
 elif [ "$1" == '-pa' ] || [ "$1" == '--p_add' ]
 then
-	mysql -u nonickn -p0000 -s db_study -e "insert into person (first_name, middle_name, last_name, alias) values ('$2', '$3', '$4', '$5')"
+	$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into person (first_name, middle_name, last_name, alias) values ('$2', '$3', '$4', '$5')"
 #	%005
 elif [ "$1" == '--vid_sv' ] || [ "$1" == '-vs'  ]
 then
@@ -137,7 +381,7 @@ then
 		abs_path=$(readlink -f "$2")
 		# this is to take the length of the file_vid
 		length01=$(find -type f -name "$2" -print0 | xargs -0 mplayer -vo dummy -ao dummy -identify 2> /dev/null | perl -nle '/ID_LENGTH=([0-9\.]+)/ && ($t +=$1) && printf "%02d:%02d:%02d\n",$t/3600,$t/60%60,$t%60' | tail -n 1)
-		mysql -u nonickn -p0000 -s db_study -e "insert into vid_stu (link_file, seen_till_end, length) values ('$abs_path', $3, time('$length01') );"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into vid_stu (link_file, seen_till_end, length) values ('$abs_path', $3, time('$length01') );"
 	else
 		echo 'ur option is not enough'
 		echo '
@@ -154,7 +398,7 @@ elif [ "$1" == '-cs'  ] || [ "$1" == '--cmd_sv' ]
 then
 	if [ -n "$2" ] && [ -n "$3" ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "insert into imp_cmd(cmd, cmt) values ('$2', '$3');"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into imp_cmd(cmd, cmt) values ('$2', '$3');"
 	else
 		echo 'ur option is not enough'
 		echo '
@@ -165,7 +409,7 @@ then
 #	%003
 elif [ "$1" == '--money_last' ] || [ "$1" == '-ml' ]
 then
-	mysql -u nonickn -p0000 -s db_study -e "select * from money_state where id_money_state=(select max(id_money_state) from money_state);"
+	$mysql_ -u nonickn -p0000 -N -s db_study -e "select * from money_state where id_money_state=(select max(id_money_state) from money_state);"
 	# msql "select * from money_state where id_money_state=(select max(id_money_state) from money_state);"
 
 elif [ "$1" == '--mon_took' ] || [ "$1" == '-mt' ]
@@ -174,7 +418,7 @@ then
 	#	$3 is for the comment, comment about the action
 	if [ "$2" ] && [ "$3" ]
 	then
-		mysql -u nonickn -p0000 -s db_study -e "insert into money_out (cost, comment) values ($2, '$3');"
+		$mysql_ -u nonickn -p0000 -N -s db_study -e "insert into money_out (cost, comment) values ($2, '$3');"
 	else
 		echo "ur arguments are not enough"
 		echo '	$2: for the cost'
